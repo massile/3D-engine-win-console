@@ -10,9 +10,11 @@ private:
 	SMALL_RECT winRect;
 public:
 	Window(short dimension, short fontSize);
-	void DrawPixel(short x, short y, short color = 255);
+	void DrawPixel(short x, short y, short color = 15);
 	void Clear(short color = 0);
 	void Render();
+
+	inline short GetDimension() const { return dimension; }
 private:
 	void SetFontSize(short size);
 	void SetWindowDimension(short dimension);
