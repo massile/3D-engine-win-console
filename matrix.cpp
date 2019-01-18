@@ -39,8 +39,8 @@ namespace Math {
 	Matrix4x4 Matrix4x4::RotationY(double angle) {
 		return Matrix4x4(new float[16] {
 		  cos(angle),	0, sin(angle), 0,
-		  0,	        0, 0,          0,
-		  -sin(angle),	1, cos(angle), 0,
+		  0,	        1, 0,          0,
+		  -sin(angle),	0, cos(angle), 0,
 		  0,	        0, 0,          1,
 		});
 	}
@@ -61,6 +61,17 @@ namespace Math {
 			0,      0,      factor, 0,
 			0,      0,      0,      1,
 		});
+	}
+
+	Matrix4x4 Matrix4x4::Perspective(float fov, float far, float near) {
+		float cot = cotan(fov / 2.0f);
+		float invNF = 1.0f / (near - far);
+		return Matrix4x4(new float[16] {
+			cot, 0,   0,                    0,
+			0,   cot, 0,                    0,
+			0,   0,   (near + far) * invNF, 0,
+			0,   0,   2.0f * far * near * invNF, 1,
+		});	
 	}
 
 	Matrix4x4 operator*(float a, const Matrix4x4& mat) {
@@ -103,9 +114,14 @@ namespace Math {
 
 	Vector3D operator*(const Matrix4x4& a, const Vector3D& b) {
 		Vector3D v;
-		v.x = a.Get(0, 0) * b.x + a.Get(0, 1) * b.y + a.Get(0, 2) * b.z + a.Get(0, 3);
-		v.y = a.Get(1, 0) * b.x + a.Get(1, 1) * b.y + a.Get(1, 2) * b.z + a.Get(1, 3);
-		v.z = a.Get(2, 0) * b.x + a.Get(2, 1) * b.y + a.Get(2, 2) * b.z + a.Get(2, 3);
+		float x = a.Get(0, 0) * b.x + a.Get(0, 1) * b.y + a.Get(0, 2) * b.z + a.Get(0, 3);
+		float y = a.Get(1, 0) * b.x + a.Get(1, 1) * b.y + a.Get(1, 2) * b.z + a.Get(1, 3);
+		float z = a.Get(2, 0) * b.x + a.Get(2, 1) * b.y + a.Get(2, 2) * b.z + a.Get(2, 3);
+		float w = a.Get(3, 0) * b.x + a.Get(3, 1) * b.y + a.Get(3, 2) * b.z + a.Get(3, 3);
+
+		v.x = x / w;
+		v.y = y / w;
+		v.z = z / w;
 		return v;
 	}
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vector.h"
 #include "math.h"
 
@@ -18,6 +20,8 @@ namespace Math {
 		static Matrix4x4 RotationY(double angle);
 		static Matrix4x4 RotationX(double angle);
 		static Matrix4x4 Scale(float factor);
+
+		static Matrix4x4 Perspective(float fov, float far, float near);
 	};
 
 	Matrix4x4 operator*(float a, const Matrix4x4& mat);

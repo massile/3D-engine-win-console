@@ -13,4 +13,8 @@ namespace Math {
 	double sin(double x) {
 		return cos(x - PI/2);
 	}
+
+	double cotan(double x) {
+		return cos(x) / sin(x);
+	}
 }
