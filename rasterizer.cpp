@@ -1,11 +1,30 @@
 #include "rasterizer.h"
+#include "utils.h"
+#include "math.h"
 
 Rasterizer::Rasterizer(Window* win) : window(win) {}
 
 void Rasterizer::DrawLine(short x0, short y0, short x1, short y1, short color) {
-	for(float t=0.0f; t <= 1.0f; t += 0.001f) {
-		short x = t * x0 + (1-t) * x1;
-		short y = t * y0 + (1-t) * y1;
-		window->DrawPixel(x, y, color);
+	bool steep = false;
+	if (Math::abs(x1 - x0) < Math::abs(y1 - y0)) {
+		Utils::Swap(x0, y0);
+		Utils::Swap(x1, y1);
+		steep = true;
+	}
+
+	if (x1 < x0) {
+		Utils::Swap(x0, x1);
+		Utils::Swap(y0, y1);
+	}
+
+	for (int x = x0; x <= x1; x++) {
+		double t = double(x - x1) / double(x0 - x1);
+		int y = t * y0 + (1 - t) * y1;
+
+		if (steep) {
+			window->DrawPixel(y, x, color);			
+		} else {
+			window->DrawPixel(x, y, color);
+		}
 	}
 }

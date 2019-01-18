@@ -33,9 +33,9 @@ void Window::Clear(short color) {
 }
 
 void Window::DrawPixel(short x, short y, short color) {
-	CHAR_INFO& pixel = buffer[x * dimension + y];
+	CHAR_INFO& pixel = buffer[y * dimension + x];
 	pixel.Char.UnicodeChar = 0xFF;
-	pixel.Attributes = color;
+	pixel.Attributes = color * 17;
 }
 
 void Window::Render() {
