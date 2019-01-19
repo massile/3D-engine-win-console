@@ -1,25 +1,22 @@
-#include "cube.h"
+#include "rasterizer.h"
+#include "window.h"
+#include "vertex.h"
+#include "matrix.h"
 
 int main() {
 	int dim = 170;
 
 	Window win(dim, 4);
 	Rasterizer raz(&win);
-
 	Math::Matrix4x4 projection = Math::Matrix4x4::Perspective(1.22f, 0.01f, 10.0f);
-	
-	Cube cube;
-	Math::Vector3D rotate(0.02f, 0.01f, 0);
+
+	Vertex point1(-0.5f, -0.5f, 0.0f, 15);
+	Vertex point2(0.0f, 0.5f, 0.0f, 15);
+	Vertex point3(0.5f, -0.5f, 0.0f, 0);
 
 	while(true) {
 		win.Clear();
-		
-		Math::Vector3D translate(0, 0, 0.1f);
-		
-		cube.Rotate(rotate);
-		cube.Translate(translate);
-		cube.Draw(projection, raz);
-
+		raz.DrawTriangle(point1, point2, point3);
 		win.Render();
 	}
 	

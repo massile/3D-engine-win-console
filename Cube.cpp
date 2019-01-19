@@ -36,6 +36,7 @@ Cube::Cube() {
 
 void Cube::Draw(Math::Matrix4x4& projection, Rasterizer& raz) {
 	// Corresponds to the vertex shader
+	/*
 	Math::Vector3D transformedPts[8];
 	for(int i = 0; i < 8; i++) {
 		model = Math::Matrix4x4::Translation(position)
@@ -52,6 +53,7 @@ void Cube::Draw(Math::Matrix4x4& projection, Rasterizer& raz) {
 			transformedPts[indices[i+2]]
 		);
 	}
+	*/
 }
 
 void Cube::Rotate(Math::Vector3D& rotation) {

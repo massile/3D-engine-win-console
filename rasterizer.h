@@ -1,22 +1,17 @@
 #pragma once
 
+#include "vertex.h"
 #include "window.h"
-#include "vector.h"
 
 class Rasterizer {
 private:
 	Window* window;
 public:
 	Rasterizer(Window* win);
-	void DrawLine(const Math::Vector2D& pt1, const Math::Vector2D& pt2, short color = 15);
-	void DrawTriangle(const Math::Vector2D& pt1, const Math::Vector2D& pt2, const Math::Vector2D& pt3, short color = 15);
+	void DrawLine(const Vertex& pt1, const Vertex& pt2);	
+	void DrawTriangle(const Vertex& pt1, const Vertex& pt2, const Vertex& pt3);
 
 private:
-	void DrawLine(short x0, short y0, short x1, short y1, short color = 15);
-	Math::Vector2D toScreenSpace(const Math::Vector2D& pt) const {
-		float w = window->GetDimension() / 2.0f;
-		float x = 1.0f + pt.x;
-		float y = 1.0f - pt.y;
-		return w * Math::Vector2D(x, y);
-	}
+	void DrawLine(short x0, short y0, short x1, short y1, short color0, short color1);
+	Math::Vector2D toScreenSpace(const Math::Vector2D& pt) const;
 };
