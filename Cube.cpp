@@ -1,65 +1,82 @@
 #include "Cube.h"
 
-Cube::Cube() {
-	vertices = new Math::Vector3D[8] {
-		{ -0.5f, -0.5f, -0.5f },
-		{  0.5f, -0.5f, -0.5f },
-		{ -0.5f,  0.5f, -0.5f },
-		{  0.5f,  0.5f, -0.5f },
+Cube::Cube(float size) {
+	float dim = size / 2;
 
-		{ -0.5f, -0.5f, 0.5f },
-		{  0.5f, -0.5f, 0.5f },
-		{ -0.5f,  0.5f, 0.5f },
-		{  0.5f,  0.5f, 0.5f },
-	};
+	vertices = new Vertex[36] {
+		Vertex(-dim, -dim, dim, 5),
+		Vertex(-dim, dim, dim, 5),
+		Vertex(dim, -dim, dim, 5),
 
-	indices = new short[36] {
-		0, 1, 2,
-		1, 2, 3,
+		Vertex(dim, -dim, dim, 5),
+		Vertex(dim, dim, dim, 5),
+		Vertex(-dim, dim, dim, 5),
 
-		4, 5, 6,
-		5, 6, 7,
+		Vertex(-dim, -dim, -dim, 10),
+		Vertex(-dim, dim, -dim, 10),
+		Vertex(dim, -dim, -dim, 10),
 
-		7, 5, 1,
-		7, 3, 1,
+		Vertex(dim, -dim, -dim, 10),
+		Vertex(dim, dim, -dim, 10),
+		Vertex(-dim, dim, -dim, 10),
 
-		6, 7, 3,
-		6, 2, 3,
+		Vertex(dim, -dim, -dim, 15),
+		Vertex(dim, dim, -dim, 15),
+		Vertex(dim, -dim, dim, 15),
 
-		6, 2, 0,
-		6, 4, 0,
+		Vertex(dim, dim, -dim, 15),
+		Vertex(dim, -dim, dim, 15),
+		Vertex(dim, dim, dim, 15),
 
-		4, 0, 1,
-		4, 5, 1,
+		Vertex(-dim, -dim, -dim, 15),
+		Vertex(-dim, dim, -dim, 15),
+		Vertex(-dim, -dim, dim, 15),
+
+		Vertex(-dim, dim, -dim, 15),
+		Vertex(-dim, -dim, dim, 15),
+		Vertex(-dim, dim, dim, 15),
+
+		Vertex(-dim, -dim, -dim, 8),
+		Vertex(dim, -dim, dim, 8),
+		Vertex(-dim, -dim, dim, 8),
+		
+		Vertex(-dim, -dim, -dim, 8),
+		Vertex(dim, -dim, dim, 8),
+		Vertex(dim, -dim, -dim, 8),
+
+		Vertex(-dim, dim, -dim, 8),
+		Vertex(dim, dim, dim, 8),
+		Vertex(-dim, dim, dim, 8),
+
+		Vertex(-dim, dim, -dim, 8),
+		Vertex(dim, dim, dim, 8),
+		Vertex(dim, dim, -dim, 8),
 	};
 }
 
 void Cube::Draw(Math::Matrix4x4& projection, Rasterizer& raz) {
-	// Corresponds to the vertex shader
-	/*
-	Math::Vector3D transformedPts[8];
-	for(int i = 0; i < 8; i++) {
-		model = Math::Matrix4x4::Translation(position)
-				* Math::Matrix4x4::RotationX(rotation.x) 
-				* Math::Matrix4x4::RotationY(rotation.y)
-				* Math::Matrix4x4::RotationZ(rotation.z);
+	model = Math::Matrix4x4::Translation(position)
+			 * Math::Matrix4x4::RotationX(rotation.x)
+			 * Math::Matrix4x4::RotationY(rotation.y)
+			 * Math::Matrix4x4::RotationZ(rotation.z);
 
-		transformedPts[i] = projection * model * vertices[i];
+	for(short i = 0; i < 36; i += 3) {
+		Vertex pt1 = vertices[i];
+		Vertex pt2 = vertices[i + 1];
+		Vertex pt3 = vertices[i + 2];
+
+		pt1.position = projection * model * pt1.position;
+		pt2.position = projection * model * pt2.position;
+		pt3.position = projection * model * pt3.position;
+		
+		raz.DrawFilledTriangle(pt1, pt2, pt3);
 	}
-	for (int i = 0; i < 36; i += 3) {
-		raz.DrawTriangle(
-			transformedPts[indices[i]],
-			transformedPts[indices[i+1]],
-			transformedPts[indices[i+2]]
-		);
-	}
-	*/
 }
 
-void Cube::Rotate(Math::Vector3D& rotation) {
+void Cube::Rotate(const Math::Vector3D& rotation) {
 	this->rotation = this->rotation + rotation;
 }
 
-void Cube::Translate(Math::Vector3D& translation) {
+void Cube::Translate(const Math::Vector3D& translation) {
 	this->position = this->position + translation;
 }

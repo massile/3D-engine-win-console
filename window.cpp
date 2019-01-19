@@ -33,8 +33,6 @@ void Window::Clear(short color) {
 }
 
 void Window::DrawPixel(short x, short y, short color) {
-	if(x < 0 || x >= dimension || y < 0 || y >= dimension) return;
-
 	CHAR_INFO& pixel = buffer[y * dimension + x];
 	pixel.Char.UnicodeChar = 0xFF;
 	pixel.Attributes = color * 17;
