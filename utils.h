@@ -7,4 +7,12 @@ namespace Utils {
 		x = y;
 		y = tmp;
 	}
+
+	template<typename T>
+	struct Tuple {
+		T first;
+		T second;
+		
+		Tuple(T first, T second) : first(first), second(second) {}
+	};
 }

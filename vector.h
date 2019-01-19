@@ -12,6 +12,8 @@ namespace Math {
 	Vector2D operator*(float a, const Vector2D& vec);
 	Vector2D operator+(const Vector2D& u, const Vector2D& v);
 	Vector2D operator+(float a, const Vector2D& v);
+	Vector2D operator-(const Vector2D& u, const Vector2D& v);
+	Vector2D operator/(const Vector2D& v, float a);
 
 	struct Vector3D: public Vector2D {
 		float z;
@@ -20,9 +22,11 @@ namespace Math {
 		Vector3D(float x, float y, float z): Vector2D(x, y), z(z) {}
 	};
 
+	Vector3D operator^(const Vector3D& u, const Vector3D& v);
+
 	Vector3D operator*(float a, const Vector3D& vec);
 	Vector3D operator+(const Vector3D& u, const Vector3D& v);
 	Vector3D operator+(float a, const Vector3D& v);
-
-
+	Vector3D operator-(const Vector3D& u, const Vector3D& v);
+	Vector3D operator/(const Vector3D& v, float a);
 }

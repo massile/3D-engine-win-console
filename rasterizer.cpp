@@ -44,6 +44,26 @@ void Rasterizer::DrawTriangle(const Vertex& pt1, const Vertex& pt2, const Vertex
 	DrawLine(pt3, pt1);
 }
 
+void Rasterizer::DrawFilledTriangle(const Vertex& pt1, const Vertex& pt2, const Vertex& pt3) {
+	Math::Vector2D p1 = toScreenSpace(pt1.position);
+	Math::Vector2D p2 = toScreenSpace(pt2.position);
+	Math::Vector2D p3 = toScreenSpace(pt3.position);
+	
+	Math::Rectangle bbox = Math::BoundingBox(p1, p2, p3);
+	Math::Vector2D G;
+
+	for (G.x = bbox.left; G.x < bbox.right; G.x++) {
+		for (G.y = bbox.bottom; G.y < bbox.top; G.y++) {
+			Math::Vector3D bary = Math::Barycenter(p1, p2, p3, G);
+
+			if (bary.x >= 0 && bary.y >= 0 && bary.z >= 0) {
+				short color = Math::clamp(bary.x * pt1.color + bary.y * pt2.color + bary.z * pt3.color);
+				window->DrawPixel(G.x, G.y, color);				
+			}
+		}
+	}
+}
+
 Math::Vector2D Rasterizer::toScreenSpace(const Math::Vector2D& pt) const {
 	float w = window->GetDimension() / 2.0f;
 	float x = 1.0f + pt.x;
