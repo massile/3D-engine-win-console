@@ -23,6 +23,14 @@ namespace Math {
 		return x > 14 ? 15 : x + 1;
 	}
 
+	double sqrt(double x) {
+		float r = x;
+		for (short i = 0; i < 50; i++) {
+			r = (r + x / r) * 0.5f;
+		}
+		return r;
+	}
+
 	Rectangle BoundingBox(const Vector2D& v1, const Vector2D& v2, const Vector2D& v3) {
 		Utils::Tuple<float> leftRight = Math::minMax(v1.x, v2.x, v3.x);
 		Utils::Tuple<float> bottomTop = Math::minMax(v1.y, v2.y, v3.y);

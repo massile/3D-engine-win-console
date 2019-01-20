@@ -22,8 +22,11 @@ namespace Math {
 		Vector3D(float x, float y, float z): Vector2D(x, y), z(z) {}
 	};
 
-	Vector3D operator^(const Vector3D& u, const Vector3D& v);
+	float length(const Vector3D& v);
+	Vector3D normalize(const Vector3D& v);
 
+	Vector3D operator^(const Vector3D& u, const Vector3D& v);
+	float operator*(const Vector3D& u, const Vector3D& v);
 	Vector3D operator*(float a, const Vector3D& vec);
 	Vector3D operator+(const Vector3D& u, const Vector3D& v);
 	Vector3D operator+(float a, const Vector3D& v);

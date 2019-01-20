@@ -1,4 +1,5 @@
 #include "vector.h"
+#include "math.h"
 
 namespace Math {
 	Vector2D operator*(float a, const Vector2D& vec) {
@@ -20,9 +21,21 @@ namespace Math {
 	Vector3D operator*(float a, const Vector3D& vec) {
 		return Vector3D(a * vec.x, a * vec.y, a * vec.z);
 	}
+	
+	float operator*(const Vector3D& u, const Vector3D& v) {
+		return u.x * v.x + u.y * v.y + u.z * v.z;
+	}
 
 	Vector2D operator/(const Vector2D& v, float a) {
 		return Vector2D(v.x / a, v.y / a);
+	}
+
+	float length(const Vector3D& v) {
+		return sqrt(v * v);
+	}
+
+	Vector3D normalize(const Vector3D& v) {
+		return v / length(v);
 	}
 
 	Vector3D operator^(const Vector3D& u, const Vector3D& v) {

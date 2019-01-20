@@ -36,7 +36,9 @@ namespace Math {
 	}
 
 	float clamp(float x);
+
 	double cos(double x);
 	double sin(double x);
 	double cotan(double x);
+	double sqrt(double x);
 }
