@@ -1,19 +1,59 @@
 #pragma once
 
-#include "rasterizer.h"
-#include "matrix.h"
-#include "vector.h"
+#include "model.h"
 
-class Cube {
-private:
-	Vertex* vertices;
-	Math::Matrix4x4 model;
-
-	Math::Vector3D position = Math::Vector3D(0.0f, 0.0f, 0.0f);
-	Math::Vector3D rotation = Math::Vector3D(0.0f, 0.0f, 0.0f);
+class Cube : public Model {
 public:
-	Cube(float size);
-	void Draw(Math::Matrix4x4& projection, Rasterizer& raz);
-	void Rotate(const Math::Vector3D& rotation);
-	void Translate(const Math::Vector3D& translation);
+	Cube(float size) : Model(36) {
+		float dim = size / 2;
+		vertices = new Vertex[36] {
+			Vertex(-dim, -dim, dim, 5),
+			Vertex(-dim, dim, dim, 5),
+			Vertex(dim, -dim, dim, 5),
+
+			Vertex(dim, -dim, dim, 5),
+			Vertex(dim, dim, dim, 5),
+			Vertex(-dim, dim, dim, 5),
+
+			Vertex(-dim, -dim, -dim, 10),
+			Vertex(-dim, dim, -dim, 10),
+			Vertex(dim, -dim, -dim, 10),
+
+			Vertex(dim, -dim, -dim, 10),
+			Vertex(dim, dim, -dim, 10),
+			Vertex(-dim, dim, -dim, 10),
+
+			Vertex(dim, -dim, -dim, 15),
+			Vertex(dim, dim, -dim, 15),
+			Vertex(dim, -dim, dim, 15),
+
+			Vertex(dim, dim, -dim, 15),
+			Vertex(dim, -dim, dim, 15),
+			Vertex(dim, dim, dim, 15),
+
+			Vertex(-dim, -dim, -dim, 15),
+			Vertex(-dim, dim, -dim, 15),
+			Vertex(-dim, -dim, dim, 15),
+
+			Vertex(-dim, dim, -dim, 15),
+			Vertex(-dim, -dim, dim, 15),
+			Vertex(-dim, dim, dim, 15),
+
+			Vertex(-dim, -dim, -dim, 8),
+			Vertex(dim, -dim, dim, 8),
+			Vertex(-dim, -dim, dim, 8),
+			
+			Vertex(-dim, -dim, -dim, 8),
+			Vertex(dim, -dim, dim, 8),
+			Vertex(dim, -dim, -dim, 8),
+
+			Vertex(-dim, dim, -dim, 8),
+			Vertex(dim, dim, dim, 8),
+			Vertex(-dim, dim, dim, 8),
+
+			Vertex(-dim, dim, -dim, 8),
+			Vertex(dim, dim, dim, 8),
+			Vertex(dim, dim, -dim, 8),
+		};
+	}
 };
