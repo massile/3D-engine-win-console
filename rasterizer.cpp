@@ -74,7 +74,7 @@ void Rasterizer::DrawFilledTriangle(const Vertex& pt1, const Vertex& pt2, const 
 			Math::Vector3D bary = Math::Barycenter(p1, p2, p3, G);
 			if (bary.x < 0 || bary.y < 0 || bary.z < 0) continue;
 
-			short color = pt1.color;
+			short color = bary.x * pt1.color + bary.y * pt2.color + bary.z * pt3.color + 0.5;
 			float z = bary.x * p1.z + bary.y * p2.z + bary.z * p3.z;
 			short index = G.x + G.y * dimension;
 			if (z > depthBuffer[index]) {

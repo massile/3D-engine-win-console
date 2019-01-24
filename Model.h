@@ -13,6 +13,7 @@ protected:
 	Math::Vector3D position = Math::Vector3D(0.0f, 0.0f, 0.0f);
 	Math::Vector3D rotation = Math::Vector3D(0.0f, 0.0f, 0.0f);
 public:
+	Model() {}
 	Model(short numVertices);
 
 	void Draw(Math::Matrix4x4& projection, Rasterizer& raz, const Math::Vector3D& lightPos);

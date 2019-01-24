@@ -67,7 +67,7 @@ namespace Math {
 		float cot = cotan(fov / 2.0f);
 		float invNF = 1.0f / (near - far);
 		return Matrix4x4(new float[16] {
-			cot, 0,   0,                    0,
+			cot * 1.5f, 0,   0,                    0,
 			0,   cot, 0,                    0,
 			0,   0,   (near + far) * invNF, 2.0f * far * near * invNF,
 			0,   0,   -1, 1,

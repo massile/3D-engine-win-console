@@ -17,7 +17,13 @@ void Model::Draw(Math::Matrix4x4& projection, Rasterizer& raz, const Math::Vecto
 		pt2.position = model * pt2.position;
 		pt3.position = model * pt3.position;
 
+		pt1.normal = model * pt1.normal;
+		pt2.normal = model * pt2.normal;
+		pt3.normal = model * pt3.normal;
+
 		pt1.color = CalculateColor(lightPos, pt1);
+		pt2.color = CalculateColor(lightPos, pt2);
+		pt3.color = CalculateColor(lightPos, pt3);
 
 		pt1.position = projection * pt1.position;
 		pt2.position = projection * pt2.position;
@@ -29,7 +35,9 @@ void Model::Draw(Math::Matrix4x4& projection, Rasterizer& raz, const Math::Vecto
 
 short Model::CalculateColor(const Math::Vector3D& lightPos, const Vertex& vertex) {
 	Math::Vector3D lightDir = Math::normalize(lightPos - vertex.position);
-	float intensity = lightDir * vertex.normal;
+	float distance = Math::length(lightPos - vertex.position);
+
+	float intensity = 10 * (lightDir * vertex.normal) / distance;
 	if (intensity < 0) intensity = 0.0f;
 
 	float finalColor = vertex.color * intensity + 3;

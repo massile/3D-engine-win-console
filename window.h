@@ -11,7 +11,7 @@ private:
 public:
 	Window(short dimension, short fontSize);
 	void DrawPixel(short x, short y, short color = 15);
-	void Clear(short color = 0);
+	void Clear(short color = 2);
 	void Render();
 
 	inline short GetDimension() const { return dimension; }

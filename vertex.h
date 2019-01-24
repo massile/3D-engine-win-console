@@ -6,9 +6,12 @@ struct Vertex {
 	Math::Vector3D position;
 	Math::Vector3D normal;
 	short color;
+	
+	Vertex() {} 
 
-	Vertex(const Math::Vector3D& position, short color) : 
+	Vertex(const Math::Vector3D& position, const Math::Vector3D& normal, short color = 15) : 
 		position(position), 
+		normal(normal),
 		color(color) {}
 		
 	Vertex(float x, float y, float z, short color) : 

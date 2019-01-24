@@ -35,10 +35,8 @@ namespace Math {
 		return x < 0 ? -x : x;
 	}
 
-	float clamp(float x);
-
-	double cos(double x);
-	double sin(double x);
-	double cotan(double x);
-	double sqrt(double x);
+	float cos(float x);
+	float sin(float x);
+	float cotan(float x);
+	float sqrt(float x);
 }
