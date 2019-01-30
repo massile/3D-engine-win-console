@@ -16,7 +16,7 @@ void Rasterizer::Clear() {
 	window->Clear();
 	short l = window->GetDimension() * window->GetDimension();
 	for(int i=0; i < l; i++) {
-		depthBuffer[i] = -10000;
+		depthBuffer[i] = -1;
 	}
 }
 
